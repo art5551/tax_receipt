@@ -1,0 +1,82 @@
+{% extends "tax_receipt/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <div class="alert hide">
+        <span class="fas fa-exclamation-circle"></span>
+        <span class="msg">Warning: This is a warning alert!</span>
+        <div class="close-btn">
+            <span class="fas fa-times"></span>
+        </div>
+    </div>
+
+    <h2>{{ request.user.username }}</h2>
+
+    <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
+    <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
+    <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
+    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
+    <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+    <hr>
+
+    <div id="emails-view">
+        <h3 id="email-views-title">Title</h3>
+    </div>
+
+
+    <div id="compose-view">
+        <h3 id="compose-view-title">New Email</h3>
+        <form id="compose-form" onsubmit="return false">
+            <div class="form-group">
+                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            </div>
+            <div class="form-group">
+                To: <input id="compose-recipients" class="form-control">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="compose-subject" placeholder="Subject">
+            </div>
+            <textarea class="form-control" id="compose-body" placeholder="Body"></textarea>
+            <!-- <input id = "submit-button" type="submit" class="btn btn-primary"/> -->
+            <button id="submit-button" class="btn btn-secondary" onclick="fetch_email()">Send</button>
+        </form>
+    </div>
+
+    <div id="view-myemail">
+        <h3 id="myemail-mailbox">Email</h3>
+        <div class="myemail-container">
+            <div class="myemail-label">
+                <input hidden="true" id="email-id" data-id="email-id" value="">
+                <p class="view-myemail-label">From:</p>
+                <p class="view-myemail-label">To:</p>
+                <p class="view-myemail-label">Subject:</p>
+                <p class="view-myemail-label">DateTime:</p>
+            </div>
+            <div class="myemail-data">
+                <p class="view-myemail-plaintext" id="myemail-from">email</p>
+                <p class="view-myemail-plaintext" id="myemail-to">to</p>
+                <p class="view-myemail-plaintext" id="myemail-subject">subject</p>
+                <p class="view-myemail-plaintext" id="myemail-timestamp">timestamp</p>
+            </div>
+            <div class="myemail-buttons">
+                <button class="view-myemail-btn" id="reply-btn" data-btn="reply"onclick="update_estatus(document.querySelector('#reply-btn'))" >Reply</button>
+                <button class="view-myemail-btn" id="archive-btn" data-btn="archive" onclick="update_estatus(document.querySelector('#archive-btn'))">Archive</button>
+                <button class="view-myemail-btn" id="read-btn" data-btn="unread" onclick="update_estatus(document.querySelector('#read-btn'))">Unread</button>
+            </div>
+            <div class="myemail-body-label">
+                    <p id="myemail-body-label">Body:</p>
+            </div>
+           <div class="myemail-body-text">
+                <p id="myemail-body">body</p>
+           </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'mail/inbox.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+{% endblock %}

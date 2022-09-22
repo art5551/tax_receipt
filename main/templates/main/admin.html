@@ -1,0 +1,31 @@
+{% extends "main/layout.html" %}
+{% load static %}
+
+
+
+{% block body %}
+
+  <div class="header-space" style="padding-top: 60px; padding-left: 50px;">
+    <div class="admin">
+      <div class="asset">
+        <div class="shadow p-4 mb-5 bg-body rounded">
+          <form action="{% url 'asset' %}" method="post" style="padding-top: 25px; width: 500px;"  >
+            {% csrf_token %}
+            <input type="hidden" id="asset_id" name="asset_id" value="">
+            <label for="asset" class="form-label">Asset:</label>
+            <input autofocus class="form-control" type="text" name="asset-name" placeholder="Asset Name">
+            <input type="checkbox" id="taxable" name="taxable" value="Taxable">
+            <label for="description" class="form-label">Description:</label>
+            <input class="form-control" type="text" name="description" placeholder="Description">
+            <br>
+            <!-- Need to use either Save or Add based on value od asset_id -->
+            <input class="btn btn-primary" type="submit" value="Save">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> 
+  {% block script %}
+  <script src="{% static 'main/admin.js' %}"></script>
+  {% endblock %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "main/layout.html" %}
+
+{% block body %}
+
+    
+
+
+    <div class="header-space" style="padding-top: 60px; padding-left: 50px;">
+        <div class="shadow p-4 mb-5 bg-body rounded">
+            <h2>Login</h2>        
+            <hr>
+            <div class="form-group">
+            <form action="{% url 'login' %}" method="post" style="padding-top: 25px; width: 500px;"  >
+                {% csrf_token %}
+                <label for="username" class="form-label">Username:</label>
+                <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+                <label for="password" class="form-label">Password:</label>
+                <input class="form-control" type="password" name="password" placeholder="Password">
+                <br>
+                <input class="btn btn-primary" type="submit" value="Login">
+            </form>
+            Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+            </div>
+        </div>
+    </div>
+    
+
+{% endblock %}
